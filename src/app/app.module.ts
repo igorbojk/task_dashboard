@@ -4,19 +4,24 @@ import { NgModule } from '@angular/core';
 
 import {
   MatButtonModule,
+  MatCardModule,
   MatCheckboxModule,
   MatIconModule,
+  MatInputModule, MatMenuModule,
   MatToolbarModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
+import { ContentComponent } from './content/content.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    ContentComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +29,11 @@ import { HeaderComponent } from './header/header.component';
     MatButtonModule,
     MatCheckboxModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatInputModule,
+    MatCardModule,
+    FormsModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
