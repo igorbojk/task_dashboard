@@ -15,13 +15,17 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
 import {FormsModule} from '@angular/forms';
+import {TaskCardFilterPipe} from './task-card-filter.pipe';
+import { TaskListComponent } from './task-list/task-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ContentComponent
+    ContentComponent,
+    TaskCardFilterPipe,
+    TaskListComponent
   ],
   imports: [
     BrowserModule,

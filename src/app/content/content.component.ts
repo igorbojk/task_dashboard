@@ -7,9 +7,14 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ContentComponent implements OnInit {
 
-  public lists = [];
+  public lists = [
+    'test'
+  ];
 
-  public newCardTitle = '';
+
+
+  public newListTitle = '';
+
 
   constructor() {
   }
@@ -18,7 +23,16 @@ export class ContentComponent implements OnInit {
   }
 
   addList(value) {
-    this.lists.push(this.newCardTitle);
-    this.newCardTitle = '';
+    this.lists.push(this.newListTitle);
+    this.newListTitle = '';
   }
+
+  removeList(list) {
+    this.lists = this.lists.filter(i => {
+      return i !== list;
+    });
+  }
+
+
+
 }
