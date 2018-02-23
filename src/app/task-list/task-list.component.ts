@@ -10,13 +10,16 @@ export class TaskListComponent implements OnInit {
 
   @Input() list;
 
+  @Input() cards;
+
   @Output() removeListItem: EventEmitter<any> = new EventEmitter();
+  @Output() addCardItem: EventEmitter<any> = new EventEmitter();
+  @Output() onDropCardItem: EventEmitter<any> = new EventEmitter();
 
   public newCardTitle = '';
 
   public createdCard = false;
 
-  public cards = [];
 
   constructor() {
   }
@@ -31,10 +34,11 @@ export class TaskListComponent implements OnInit {
   addCard(parent) {
     const card = {
       title: this.newCardTitle,
-      parent: parent
+      parent: parent.name,
+      id: '_' + Math.random().toString(36).substr(2, 9)
     };
-    this.cards = [...this.cards, card];
     this.cancelAddingCard();
+    this.addCardItem.emit(card);
   }
 
   cancelAddingCard() {
@@ -44,6 +48,11 @@ export class TaskListComponent implements OnInit {
 
   removeList() {
     this.removeListItem.emit(this.list);
+  }
+
+  onDrop(data, parent) {
+    this.onDropCardItem.emit({data: data, parent: parent});
+
   }
 
 }

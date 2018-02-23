@@ -17,7 +17,8 @@ import { ContentComponent } from './content/content.component';
 import {FormsModule} from '@angular/forms';
 import {TaskCardFilterPipe} from './task-card-filter.pipe';
 import { TaskListComponent } from './task-list/task-list.component';
-
+import { TaskDashboardComponent } from './task-dashboard/task-dashboard.component';
+import {DndModule} from 'ng2-dnd';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { TaskListComponent } from './task-list/task-list.component';
     HeaderComponent,
     ContentComponent,
     TaskCardFilterPipe,
-    TaskListComponent
+    TaskListComponent,
+    TaskDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,8 @@ import { TaskListComponent } from './task-list/task-list.component';
     MatInputModule,
     MatCardModule,
     FormsModule,
-    MatMenuModule
+    MatMenuModule,
+    DndModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

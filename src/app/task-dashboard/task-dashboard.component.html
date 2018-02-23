@@ -1,0 +1,21 @@
+<div class="lists-row">
+  <app-task-list
+    class="lists-col"
+    *ngFor="let list of lists"
+    [list]="list"
+    [cards]="cards"
+    (removeListItem)="removeList($event)"
+    (addCardItem)="addCard($event)"
+    (onDropCardItem)="onDropCard($event)"
+
+  >
+  </app-task-list>
+  <div class="lists-col">
+    <mat-form-field class="list-input">
+      <input matInput placeholder="Add list a ..." [(ngModel)]="newListTitle" (keyup.enter)="addList()" (keyup)="checkValidation()">
+    </mat-form-field>
+    <div class="error" *ngIf="validationError">
+      There is already a list with that name
+    </div>
+  </div>
+</div>

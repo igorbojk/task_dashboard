@@ -1,0 +1,18 @@
+.lists-row{
+  display: flex;
+  margin-top: 72px;
+}
+.lists-col{
+  width: 320px;
+  margin: 0 8px;
+  flex: 0 0 auto;
+}
+
+.list-input{
+  width: 100%;
+}
+.error{
+  color: red;
+  font-size: 14px;
+  margin-top: -12px;
+}
