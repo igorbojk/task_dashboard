@@ -16,7 +16,33 @@ export class TaskDashboardComponent implements OnInit {
     }
   ];
 
-  public cards = [];
+  public cards = [
+    {
+      title: 'test 1',
+      parent: 'test',
+      id: '_h8dug86l8'
+    },
+    {
+      title: 'test 2',
+      parent: 'test',
+      id: '_2b8b7mi30'
+    },
+    {
+      title: 'everest 1',
+      parent: 'everest',
+      id: '_2b8b7mi80'
+    },
+    {
+      title: 'everest 2',
+      parent: 'everest',
+      id: '_2b8b7mi20'
+    },
+    {
+      title: 'everest 3',
+      parent: 'everest',
+      id: '_2b8b7mi31'
+    }
+  ];
 
   public newListTitle = '';
   public validationError = false;
@@ -62,6 +88,5 @@ export class TaskDashboardComponent implements OnInit {
     }).parent = data.parent;
 
     this.cards = [...this.cards];
-
   }
 }

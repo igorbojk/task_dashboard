@@ -1,0 +1,29 @@
+
+.task-card{
+  margin: 8px !important;
+  box-sizing: border-box;
+  background: #fafafa;
+  padding: 8px;
+  border-radius: 2px;
+  word-break: break-word;
+  position: relative;
+}
+
+.task-card:hover {
+  background: #dedede;
+}
+
+.task-card .edit-btn{
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+.task-card .edit-btn .mat-icon{
+  font-size: 14px;
+  text-align: center;
+  line-height: 24px;
+}
+.task-card:hover .edit-btn{
+  display: block;
+}

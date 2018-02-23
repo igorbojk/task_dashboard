@@ -21,6 +21,7 @@ export class TaskListComponent implements OnInit {
   public createdCard = false;
 
 
+
   constructor() {
   }
 
@@ -52,7 +53,8 @@ export class TaskListComponent implements OnInit {
 
   onDrop(data, parent) {
     this.onDropCardItem.emit({data: data, parent: parent});
-
   }
+
+
 
 }

@@ -13,11 +13,10 @@
   </mat-card-header>
   <mat-card-content *ngIf="cards.length" dnd-droppable  (onDropSuccess)="onDrop($event, list.name)">
     <div *ngFor="let card of cards | taskCardFilter: list.name"
-         class="task-card"
          dnd-draggable
          [dragEnabled]="true"
          [dragData]="{id: card.id}">
-      <p>{{card.title}}</p>
+      <app-task-list-card [card]="card"></app-task-list-card>
     </div>
   </mat-card-content>
   <mat-card-actions>

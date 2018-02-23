@@ -1,0 +1,16 @@
+<div class="task-card">
+  <div *ngIf="!cardEditing">
+    <p>{{card.title}}</p>
+    <a class="edit-btn" (click)="startEditCard()">
+      <mat-icon aria-label="Example icon-button with a heart icon">mode_edit</mat-icon>
+    </a>
+  </div>
+  <div *ngIf="cardEditing">
+    <mat-form-field class="example-full-width">
+      <input matInput [(ngModel)]="card.title">
+    </mat-form-field>
+    <a class="edit-btn" (click)="saveCard()">
+      <mat-icon aria-label="Example icon-button with a heart icon">save</mat-icon>
+    </a>
+  </div>
+</div>

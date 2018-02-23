@@ -19,6 +19,7 @@ import {TaskCardFilterPipe} from './task-card-filter.pipe';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskDashboardComponent } from './task-dashboard/task-dashboard.component';
 import {DndModule} from 'ng2-dnd';
+import { TaskListCardComponent } from './task-list-card/task-list-card.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {DndModule} from 'ng2-dnd';
     ContentComponent,
     TaskCardFilterPipe,
     TaskListComponent,
-    TaskDashboardComponent
+    TaskDashboardComponent,
+    TaskListCardComponent
   ],
   imports: [
     BrowserModule,
