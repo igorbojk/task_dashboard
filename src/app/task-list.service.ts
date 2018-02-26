@@ -10,7 +10,37 @@ export class TaskListService {
 
   private onCardUpdated = new Subject<any>();
 
+  private onListRemoved = new Subject<any>();
+
+  private onAddCard = new Subject<any>();
+
+  private onDropCard = new Subject<any>();
+
   constructor() {
+  }
+
+  removeList(list) {
+    this.onListRemoved.next(list);
+  }
+
+  updatedLists(): Observable<any> {
+    return this.onListRemoved.asObservable();
+  }
+
+  addCard(card) {
+    this.onAddCard.next(card);
+  }
+
+  updateListOnAddCard(): Observable<any> {
+    return this.onAddCard.asObservable();
+  }
+
+  moveCard(data) {
+    this.onDropCard.next(data);
+  }
+
+  updateListOnMoveCard() {
+    return this.onDropCard.asObservable();
   }
 
   deleteCard(cardId) {

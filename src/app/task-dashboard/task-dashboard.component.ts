@@ -51,23 +51,51 @@ export class TaskDashboardComponent implements OnDestroy {
 
   onDeleteCard: Subscription;
   onUdateCard: Subscription;
+  onRemovedList: Subscription;
+  onAddCard: Subscription;
+  onMoveCard: Subscription;
 
 
   constructor(private talkListService: TaskListService) {
-    this.onDeleteCard = this.talkListService.updateListOnDeleteCard().subscribe(cardId => {
-      this.cards = this.cards.filter(k => k.id !== cardId);
-    });
+    this.onDeleteCard = this.talkListService.updateListOnDeleteCard()
+      .subscribe(cardId => {
+        this.cards = this.cards.filter(k => k.id !== cardId);
+      });
 
-    this.onUdateCard = this.talkListService.updateListOnUpdateCard().subscribe(card => {
-      console.log('card updated');
-    });
+    this.onUdateCard = this.talkListService.updateListOnUpdateCard()
+      .subscribe(card => {
+        console.log('card updated');
+      });
+
+    this.onRemovedList = this.talkListService.updatedLists()
+      .subscribe(list => {
+        this.lists = this.lists.filter(i => {
+          return i !== list;
+        });
+      });
+
+    this.onAddCard = this.talkListService.updateListOnAddCard()
+      .subscribe(card => {
+        this.cards = [...this.cards, card];
+      });
+
+    this.onMoveCard = this.talkListService.updateListOnMoveCard()
+      .subscribe(data => {
+        this.cards.find((i) => {
+          return i.id === data.data.dragData.id;
+        }).parent = data.parent;
+
+        this.cards = [...this.cards];
+      });
   }
 
 
   ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
     this.onDeleteCard.unsubscribe();
     this.onUdateCard.unsubscribe();
+    this.onRemovedList.unsubscribe();
+    this.onAddCard.unsubscribe();
+    this.onMoveCard.unsubscribe();
   }
 
   checkValidation() {
@@ -89,21 +117,4 @@ export class TaskDashboardComponent implements OnDestroy {
     this.newListTitle = '';
   }
 
-  removeList(list) {
-    this.lists = this.lists.filter(i => {
-      return i !== list;
-    });
-  }
-
-  addCard(item) {
-    this.cards = [...this.cards, item];
-  }
-
-  onDropCard(data) {
-    this.cards.find((i) => {
-      return i.id === data.data.dragData.id;
-    }).parent = data.parent;
-
-    this.cards = [...this.cards];
-  }
 }

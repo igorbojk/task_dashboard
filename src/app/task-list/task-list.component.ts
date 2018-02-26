@@ -1,7 +1,7 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
-import {EventEmitter} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ModalDialogComponent} from '../modal-dialog/modal-dialog.component';
 import {MatDialog} from '@angular/material';
+import {TaskListService} from '../task-list.service';
 
 @Component({
   selector: 'app-task-list',
@@ -14,9 +14,6 @@ export class TaskListComponent implements OnInit {
 
   @Input() cards;
 
-  @Output() removeListItem: EventEmitter<any> = new EventEmitter();
-  @Output() addCardItem: EventEmitter<any> = new EventEmitter();
-  @Output() onDropCardItem: EventEmitter<any> = new EventEmitter();
 
   public newCardTitle = '';
 
@@ -24,7 +21,9 @@ export class TaskListComponent implements OnInit {
 
 
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    private taskListService: TaskListService) {
   }
 
   ngOnInit() {
@@ -41,7 +40,7 @@ export class TaskListComponent implements OnInit {
       id: '_' + Math.random().toString(36).substr(2, 9)
     };
     this.cancelAddingCard();
-    this.addCardItem.emit(card);
+    this.taskListService.addCard(card);
   }
 
   cancelAddingCard() {
@@ -50,7 +49,7 @@ export class TaskListComponent implements OnInit {
   }
 
   onDrop(data, parent) {
-    this.onDropCardItem.emit({data: data, parent: parent});
+    this.taskListService.moveCard({data: data, parent: parent});
   }
 
   openDialog(): void {
@@ -63,7 +62,7 @@ export class TaskListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.removeListItem.emit(this.list);
+        this.taskListService.removeList(this.list);
       }
     });
   }

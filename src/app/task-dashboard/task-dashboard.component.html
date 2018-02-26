@@ -4,10 +4,6 @@
     *ngFor="let list of lists"
     [list]="list"
     [cards]="cards"
-    (removeListItem)="removeList($event)"
-    (addCardItem)="addCard($event)"
-    (onDropCardItem)="onDropCard($event)"
-
   >
   </app-task-list>
   <div class="lists-col">
