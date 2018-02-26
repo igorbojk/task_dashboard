@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {TaskListService} from '../task-list.service';
 import {MatDialog} from '@angular/material';
 import {ModalDialogComponent} from '../modal-dialog/modal-dialog.component';
+import {CardModalComponent} from '../card-modal/card-modal.component';
 
 @Component({
   selector: 'app-task-list-card',
@@ -12,8 +13,6 @@ export class TaskListCardComponent implements OnInit {
 
   @Input() card;
 
-  public cardEditing = false;
-  public editingCard = {};
 
   constructor(
     private talkListService: TaskListService,
@@ -21,22 +20,6 @@ export class TaskListCardComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  startEditCard() {
-    this.cardEditing = true;
-    this.editingCard = Object.assign({}, this.card);
-  }
-
-  saveCard() {
-    this.card = Object.assign({}, this.editingCard);
-    this.talkListService.updateCard(this.card);
-    this.cardEditing = false;
-  }
-
-  cancelEdit() {
-    this.editingCard = {};
-    this.cardEditing = false;
   }
 
   openDialog(): void {
@@ -50,6 +33,23 @@ export class TaskListCardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.talkListService.deleteCard(this.card.id);
+      }
+    });
+  }
+
+  openInfoModal(isEditMode): void {
+    const dialogRef = this.dialog.open(CardModalComponent, {
+      width: '320px',
+      data: {
+        isEditMode: isEditMode,
+        card: Object.assign({}, this.card)
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.message === 'save' && result.card !== this.card) {
+        this.card = Object.assign({}, result.card);
+        this.talkListService.updateCard(this.card);
       }
     });
   }

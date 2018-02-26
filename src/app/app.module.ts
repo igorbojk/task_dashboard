@@ -24,6 +24,7 @@ import {DndModule} from 'ng2-dnd';
 import { TaskListCardComponent } from './task-list-card/task-list-card.component';
 import {TaskListService} from './task-list.service';
 import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
+import { CardModalComponent } from './card-modal/card-modal.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
     TaskListComponent,
     TaskDashboardComponent,
     TaskListCardComponent,
-    ModalDialogComponent
+    ModalDialogComponent,
+    CardModalComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
     TaskListService
   ],
   entryComponents: [
-    ModalDialogComponent
+    ModalDialogComponent,
+    CardModalComponent
   ],
   bootstrap: [AppComponent]
 })

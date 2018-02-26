@@ -1,10 +1,17 @@
 .lists-row{
+
   display: flex;
-  margin-top: 72px;
+  overflow: auto;
+  position: fixed;
+  top: 72px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: auto;
 }
 .lists-col{
   width: 320px;
-  margin: 0 8px;
+  padding: 0 8px;
   flex: 0 0 auto;
 }
 

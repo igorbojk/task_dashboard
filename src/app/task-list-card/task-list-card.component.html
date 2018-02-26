@@ -1,27 +1,11 @@
-<div class="task-card">
-  <div *ngIf="!cardEditing">
+<div class="task-card" (click)="openInfoModal()">
     <p>{{card.title}}</p>
     <div class="action-buttons">
-      <a class="edit-btn" (click)="startEditCard()">
+      <a class="edit-btn" (click)="openInfoModal(true); $event.stopPropagation()">
         <mat-icon>mode_edit</mat-icon>
       </a>
-      <a class="edit-btn" (click)="openDialog()">
+      <a class="edit-btn" (click)="openDialog(); $event.stopPropagation()">
         <mat-icon>delete</mat-icon>
       </a>
     </div>
-
-  </div>
-  <div *ngIf="cardEditing">
-    <mat-form-field class="example-full-width">
-      <input matInput [(ngModel)]="editingCard.title">
-    </mat-form-field>
-    <div class="action-buttons">
-      <a class="edit-btn" (click)="saveCard()">
-        <mat-icon>save</mat-icon>
-      </a>
-      <a class="edit-btn" (click)="cancelEdit()">
-        <mat-icon>cancel</mat-icon>
-      </a>
-    </div>
-  </div>
 </div>

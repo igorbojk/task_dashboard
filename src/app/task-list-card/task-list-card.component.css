@@ -5,12 +5,18 @@
   background: #fafafa;
   padding: 8px;
   border-radius: 2px;
-  word-break: break-word;
+  white-space: nowrap;
   position: relative;
+}
+
+.task-card p {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .task-card:hover {
   background: #dedede;
+  padding-right: 48px;
 }
 
 .task-card .action-buttons{

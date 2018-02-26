@@ -1,0 +1,15 @@
+<div *ngIf="!data.isEditMode">
+  <h1 mat-dialog-title>{{data.card.title}}</h1>
+</div>
+<div *ngIf="data.isEditMode">
+  <mat-form-field class="full-width">
+    <textarea matInput [(ngModel)]="data.card.title" matAutosizeMinRows="1" matTextareaAutosize></textarea>
+  </mat-form-field>
+</div>
+<mat-dialog-content>
+
+</mat-dialog-content>
+<div mat-dialog-actions>
+  <button mat-button  mat-dialog-close>Cancel</button>
+  <button mat-button  [mat-dialog-close]="{message: 'save', card: data.card}" [disabled]="title == data.card.title">Save</button>
+</div>
