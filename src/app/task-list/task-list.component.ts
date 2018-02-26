@@ -1,5 +1,7 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
 import {EventEmitter} from '@angular/core';
+import {ModalDialogComponent} from '../modal-dialog/modal-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-task-list',
@@ -22,7 +24,7 @@ export class TaskListComponent implements OnInit {
 
 
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -47,12 +49,23 @@ export class TaskListComponent implements OnInit {
     this.createdCard = false;
   }
 
-  removeList() {
-    this.removeListItem.emit(this.list);
-  }
-
   onDrop(data, parent) {
     this.onDropCardItem.emit({data: data, parent: parent});
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ModalDialogComponent, {
+      width: '250px',
+      data: {
+        headerCaption: 'Are you sure?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.removeListItem.emit(this.list);
+      }
+    });
   }
 
 

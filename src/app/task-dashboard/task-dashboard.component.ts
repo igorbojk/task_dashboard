@@ -1,11 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
+import {TaskListService} from '../task-list.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-task-dashboard',
   templateUrl: './task-dashboard.component.html',
   styleUrls: ['./task-dashboard.component.css']
 })
-export class TaskDashboardComponent implements OnInit {
+export class TaskDashboardComponent implements OnDestroy {
 
   public lists = [
     {
@@ -47,10 +49,25 @@ export class TaskDashboardComponent implements OnInit {
   public newListTitle = '';
   public validationError = false;
 
-  constructor() {
+  onDeleteCard: Subscription;
+  onUdateCard: Subscription;
+
+
+  constructor(private talkListService: TaskListService) {
+    this.onDeleteCard = this.talkListService.updateListOnDeleteCard().subscribe(cardId => {
+      this.cards = this.cards.filter(k => k.id !== cardId);
+    });
+
+    this.onUdateCard = this.talkListService.updateListOnUpdateCard().subscribe(card => {
+      console.log('card updated');
+    });
   }
 
-  ngOnInit() {
+
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.onDeleteCard.unsubscribe();
+    this.onUdateCard.unsubscribe();
   }
 
   checkValidation() {

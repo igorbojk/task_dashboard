@@ -13,7 +13,7 @@
   background: #dedede;
 }
 
-.task-card .edit-btn{
+.task-card .action-buttons{
   position: absolute;
   top: 0;
   right: 0;
@@ -24,6 +24,6 @@
   text-align: center;
   line-height: 24px;
 }
-.task-card:hover .edit-btn{
+.task-card:hover .action-buttons{
   display: block;
 }

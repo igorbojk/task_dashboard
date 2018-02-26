@@ -6,8 +6,10 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
+  MatDialogModule,
   MatIconModule,
-  MatInputModule, MatMenuModule,
+  MatInputModule,
+  MatMenuModule,
   MatToolbarModule
 } from '@angular/material';
 
@@ -20,6 +22,8 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { TaskDashboardComponent } from './task-dashboard/task-dashboard.component';
 import {DndModule} from 'ng2-dnd';
 import { TaskListCardComponent } from './task-list-card/task-list-card.component';
+import {TaskListService} from './task-list.service';
+import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,8 @@ import { TaskListCardComponent } from './task-list-card/task-list-card.component
     TaskCardFilterPipe,
     TaskListComponent,
     TaskDashboardComponent,
-    TaskListCardComponent
+    TaskListCardComponent,
+    ModalDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -42,9 +47,15 @@ import { TaskListCardComponent } from './task-list-card/task-list-card.component
     MatCardModule,
     FormsModule,
     MatMenuModule,
-    DndModule.forRoot()
+    DndModule.forRoot(),
+    MatDialogModule
   ],
-  providers: [],
+  providers: [
+    TaskListService
+  ],
+  entryComponents: [
+    ModalDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
