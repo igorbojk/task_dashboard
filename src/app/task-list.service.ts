@@ -16,6 +16,8 @@ export class TaskListService {
 
   private onDropCard = new Subject<any>();
 
+  private onOpenCardModal = new Subject<any>();
+
   constructor() {
   }
 
@@ -44,7 +46,7 @@ export class TaskListService {
   }
 
   deleteCard(cardId) {
-    this.onDeleteCard.next( cardId );
+    this.onDeleteCard.next(cardId);
   }
 
   updateListOnDeleteCard(): Observable<any> {
@@ -57,6 +59,14 @@ export class TaskListService {
 
   updateListOnUpdateCard(): Observable<any> {
     return this.onCardUpdated.asObservable();
+  }
+
+  openCardModal(data) {
+    this.onOpenCardModal.next(data);
+  }
+
+  openCardModalEvent(): Observable<any> {
+    return this.onOpenCardModal.asObservable();
   }
 
 }

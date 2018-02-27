@@ -38,20 +38,11 @@ export class TaskListCardComponent implements OnInit {
   }
 
   openInfoModal(isEditMode): void {
-    const dialogRef = this.dialog.open(CardModalComponent, {
-      width: '320px',
-      data: {
-        isEditMode: isEditMode,
-        card: Object.assign({}, this.card)
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result.message === 'save' && result.card !== this.card) {
-        this.card = Object.assign({}, result.card);
-        this.talkListService.updateCard(this.card);
-      }
-    });
+    const data = {
+      isEditMode: isEditMode,
+      card: Object.assign({}, this.card)
+    };
+    this.talkListService.openCardModal(data);
   }
 
 }

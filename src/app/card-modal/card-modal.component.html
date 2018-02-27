@@ -7,9 +7,25 @@
   </mat-form-field>
 </div>
 <mat-dialog-content>
+  <div class="flex-container">
+    <div>
 
+    </div>
+    <div class="actions">
+      <p>
+        Actions
+      </p>
+      <button mat-button [matMenuTriggerFor]="menu">Move</button>
+      <mat-menu #menu="matMenu" yPosition="below">
+        <button mat-menu-item [mat-dialog-close]="{message: 'move', card: data.card, parent: list.name}" *ngFor="let list of data.lists">
+          {{list.name}}
+        </button>
+      </mat-menu>
+      <button mat-button color="warn">Delete</button>
+    </div>
+  </div>
 </mat-dialog-content>
 <div mat-dialog-actions>
-  <button mat-button  mat-dialog-close>Cancel</button>
-  <button mat-button  [mat-dialog-close]="{message: 'save', card: data.card}" [disabled]="title == data.card.title">Save</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="{message: 'save', card: data.card}" [disabled]="title == data.card.title">Save</button>
 </div>

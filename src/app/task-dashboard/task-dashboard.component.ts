@@ -1,6 +1,8 @@
 import {Component, OnDestroy} from '@angular/core';
 import {TaskListService} from '../task-list.service';
 import {Subscription} from 'rxjs/Subscription';
+import {CardModalComponent} from '../card-modal/card-modal.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-task-dashboard',
@@ -54,9 +56,11 @@ export class TaskDashboardComponent implements OnDestroy {
   onRemovedList: Subscription;
   onAddCard: Subscription;
   onMoveCard: Subscription;
+  openCardModal: Subscription;
 
 
-  constructor(private talkListService: TaskListService) {
+  constructor(private talkListService: TaskListService,
+              public dialog: MatDialog) {
     this.onDeleteCard = this.talkListService.updateListOnDeleteCard()
       .subscribe(cardId => {
         this.cards = this.cards.filter(k => k.id !== cardId);
@@ -81,12 +85,15 @@ export class TaskDashboardComponent implements OnDestroy {
 
     this.onMoveCard = this.talkListService.updateListOnMoveCard()
       .subscribe(data => {
-        this.cards.find((i) => {
-          return i.id === data.data.dragData.id;
-        }).parent = data.parent;
-
-        this.cards = [...this.cards];
+        this.moveCard(data.data.dragData.id, data.parent);
       });
+    this.openCardModal = this.talkListService.openCardModalEvent()
+      .subscribe(
+        data => {
+          this.openCardItemModal(data);
+        }
+      );
+
   }
 
 
@@ -96,6 +103,7 @@ export class TaskDashboardComponent implements OnDestroy {
     this.onRemovedList.unsubscribe();
     this.onAddCard.unsubscribe();
     this.onMoveCard.unsubscribe();
+    this.openCardModal.unsubscribe();
   }
 
   checkValidation() {
@@ -116,5 +124,41 @@ export class TaskDashboardComponent implements OnDestroy {
     this.lists.push(list);
     this.newListTitle = '';
   }
+
+  moveCard(id, parent) {
+    this.cards.find((i) => {
+      return i.id === id;
+    }).parent = parent;
+
+    this.cards = [...this.cards];
+  }
+
+  openCardItemModal(data) {
+    const dialogRef = this.dialog.open(CardModalComponent, {
+      width: '320px',
+      data: {
+        isEditMode: data.isEditMode,
+        card: Object.assign({}, data.card),
+        lists: this.lists
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.message === 'save' && result.card !== data.card) {
+
+        const index = this.cards.findIndex((i) => {
+          return i.id === result.card.id;
+        });
+        this.cards[index] = Object.assign({}, result.card);
+        this.cards = [...this.cards];
+        this.talkListService.updateCard(data.card);
+
+      } else if (result && result.message === 'move') {
+        this.moveCard(result.card.id, result.parent);
+      }
+
+    });
+  }
+
 
 }
