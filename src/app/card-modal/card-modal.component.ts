@@ -1,5 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {TaskListService} from '../task-list.service';
 
 
 @Component({
@@ -8,23 +9,54 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
   styleUrls: ['./card-modal.component.css']
 })
 export class CardModalComponent implements OnInit {
-  public title = '';
-  constructor(
-    public dialogRef: MatDialogRef<CardModalComponent>,
+  public card;
 
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(public dialogRef: MatDialogRef<CardModalComponent>,
+              private taskListService: TaskListService,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
+  }
 
-    ngOnInit() {
-      this.title = this.data.card.title;
-    }
+  ngOnInit() {
+    this.card = Object.assign({}, this.data.card);
+  }
 
-  // onNoClick(): void {
-  //   console.log('No');
-  //   this.dialogRef.close();
-  // }
-  // onYesClick(): void {
-  //   console.log('Yes');
-  //   this.dialogRef.close();
-  // }
+  save(): void {
+    this.data.card = Object.assign({}, this.card);
+    this.taskListService.updateCard(this.data.card);
+    this.dialogRef.close();
+  }
+
+  delete(): void {
+    this.taskListService.deleteCard(this.data.card.id);
+    this.dialogRef.close();
+  }
+
+  move(id, parent) {
+    this.taskListService.moveCard({id: id, parent: parent});
+    this.dialogRef.close();
+  }
+
+  changeBorderColor(color) {
+    this.card.borderColor = color;
+    this.data.card = Object.assign({}, this.card);
+    this.taskListService.updateCard(this.data.card);
+  }
+
+  edit() {
+    this.data.isEditMode = true;
+  }
+
+  cancel() {
+    this.data.isEditMode = false;
+    this.card.title = this.data.card.title;
+  }
+
+  saveTitle() {
+    this.data.card.title = this.card.title;
+    this.data.card = Object.assign({}, this.card);
+    this.taskListService.updateCard(this.data.card);
+    this.data.isEditMode = false;
+  }
+
 
 }

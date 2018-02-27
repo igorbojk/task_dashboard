@@ -24,28 +24,40 @@ export class TaskDashboardComponent implements OnDestroy {
     {
       title: 'test 1',
       parent: 'test',
-      id: '_h8dug86l8'
+      id: '_h8dug86l8',
+      borderColor: 'transparent'
     },
     {
       title: 'test 2',
       parent: 'test',
-      id: '_2b8b7mi30'
+      id: '_2b8b7mi30',
+      borderColor: 'transparent'
     },
     {
       title: 'everest 1',
       parent: 'everest',
-      id: '_2b8b7mi80'
+      id: '_2b8b7mi80',
+      borderColor: 'transparent'
     },
     {
       title: 'everest 2',
       parent: 'everest',
-      id: '_2b8b7mi20'
+      id: '_2b8b7mi20',
+      borderColor: 'transparent'
     },
     {
       title: 'everest 3',
       parent: 'everest',
-      id: '_2b8b7mi31'
+      id: '_2b8b7mi31',
+      borderColor: 'transparent'
     }
+  ];
+
+  public labelColors = [
+    'red',
+    'green',
+    'gray',
+    'yellow'
   ];
 
   public newListTitle = '';
@@ -68,7 +80,11 @@ export class TaskDashboardComponent implements OnDestroy {
 
     this.onUdateCard = this.talkListService.updateListOnUpdateCard()
       .subscribe(card => {
-        console.log('card updated');
+        const index = this.cards.findIndex((i) => {
+          return i.id === card.id;
+        });
+        this.cards[index] = Object.assign({}, card);
+        this.cards = [...this.cards];
       });
 
     this.onRemovedList = this.talkListService.updatedLists()
@@ -85,7 +101,7 @@ export class TaskDashboardComponent implements OnDestroy {
 
     this.onMoveCard = this.talkListService.updateListOnMoveCard()
       .subscribe(data => {
-        this.moveCard(data.data.dragData.id, data.parent);
+        this.moveCard(data.id, data.parent);
       });
     this.openCardModal = this.talkListService.openCardModalEvent()
       .subscribe(
@@ -139,24 +155,9 @@ export class TaskDashboardComponent implements OnDestroy {
       data: {
         isEditMode: data.isEditMode,
         card: Object.assign({}, data.card),
-        lists: this.lists
+        lists: this.lists,
+        labelColors: this.labelColors
       }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result && result.message === 'save' && result.card !== data.card) {
-
-        const index = this.cards.findIndex((i) => {
-          return i.id === result.card.id;
-        });
-        this.cards[index] = Object.assign({}, result.card);
-        this.cards = [...this.cards];
-        this.talkListService.updateCard(data.card);
-
-      } else if (result && result.message === 'move') {
-        this.moveCard(result.card.id, result.parent);
-      }
-
     });
   }
 

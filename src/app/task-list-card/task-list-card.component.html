@@ -1,4 +1,4 @@
-<div class="task-card" (click)="openInfoModal()">
+<div class="task-card" (click)="openInfoModal()" [style.borderColor]="card.borderColor">
     <p>{{card.title}}</p>
     <div class="action-buttons">
       <a class="edit-btn" (click)="openInfoModal(true); $event.stopPropagation()">

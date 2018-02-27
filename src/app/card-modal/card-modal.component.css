@@ -6,3 +6,14 @@
 .actions .mat-button{
   display: block;
 }
+
+.label-button{
+  display: block;
+  padding: 8px 0;
+}
+.label-button:hover{
+  cursor: pointer;
+}
+.action-buttons a{
+  margin: 0 4px;
+}

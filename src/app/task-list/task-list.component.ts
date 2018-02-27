@@ -49,7 +49,10 @@ export class TaskListComponent implements OnInit {
   }
 
   onDrop(data, parent) {
-    this.taskListService.moveCard({data: data, parent: parent});
+    if (!data.dragData) {
+      return;
+    }
+    this.taskListService.moveCard({id: data.dragData.id, parent: parent});
   }
 
   openDialog(): void {

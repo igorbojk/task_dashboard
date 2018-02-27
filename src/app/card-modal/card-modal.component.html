@@ -1,10 +1,23 @@
-<div *ngIf="!data.isEditMode">
-  <h1 mat-dialog-title>{{data.card.title}}</h1>
+<div *ngIf="!data.isEditMode" class="flex-container">
+  <h1 mat-dialog-title>{{card.title}}</h1>
+  <div class="action-buttons">
+    <a class="edit-btn" (click)="edit()">
+      <mat-icon>mode_edit</mat-icon>
+    </a>
+  </div>
 </div>
-<div *ngIf="data.isEditMode">
+<div *ngIf="data.isEditMode" class="flex-container">
   <mat-form-field class="full-width">
-    <textarea matInput [(ngModel)]="data.card.title" matAutosizeMinRows="1" matTextareaAutosize></textarea>
+    <textarea matInput [(ngModel)]="card.title" matAutosizeMinRows="1" matTextareaAutosize></textarea>
   </mat-form-field>
+  <div class="action-buttons" class="flex-container">
+    <a class="edit-btn" (click)="saveTitle()">
+      <mat-icon>save</mat-icon>
+    </a>
+    <a class="edit-btn" (click)="cancel()">
+      <mat-icon>cancel</mat-icon>
+    </a>
+  </div>
 </div>
 <mat-dialog-content>
   <div class="flex-container">
@@ -15,17 +28,24 @@
       <p>
         Actions
       </p>
+      <button mat-button [matMenuTriggerFor]="labelMenu" [style.backgroundColor]="card.borderColor">Label Color</button>
+      <mat-menu #labelMenu="matMenu" yPosition="below" >
+        <a class="label-button" (click)="changeBorderColor('transparent')"> None </a>
+        <a *ngFor="let item of data.labelColors" [style.backgroundColor]="item" class="label-button" (click)="changeBorderColor(item)">
+          {{item}}
+        </a>
+      </mat-menu>
       <button mat-button [matMenuTriggerFor]="menu">Move</button>
-      <mat-menu #menu="matMenu" yPosition="below">
-        <button mat-menu-item [mat-dialog-close]="{message: 'move', card: data.card, parent: list.name}" *ngFor="let list of data.lists">
+      <mat-menu #menu="matMenu" yPosition="below" >
+        <button mat-menu-item (click)="move(data.card.id, list.name)" *ngFor="let list of data.lists" [disabled]="data.card.parent == list.name">
+          <mat-icon>
+            keyboard_arrow_right
+          </mat-icon>
           {{list.name}}
         </button>
       </mat-menu>
-      <button mat-button color="warn">Delete</button>
+      <button mat-button color="warn" (click)="delete()">Delete</button>
     </div>
   </div>
 </mat-dialog-content>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="{message: 'save', card: data.card}" [disabled]="title == data.card.title">Save</button>
-</div>
+

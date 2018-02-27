@@ -7,6 +7,7 @@
   border-radius: 2px;
   white-space: nowrap;
   position: relative;
+  border-top: solid 5px transparent;
 }
 
 .task-card p {
