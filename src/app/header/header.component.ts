@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UIRouter} from '@uirouter/angular';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  headerTitle: string;
+
+  constructor(
+    private router: UIRouter,
+  ) { }
 
   ngOnInit() {
+    this.headerTitle = this.router.globals.params.boardId ? this.router.globals.params.boardId : 'Custom title';
   }
 
 }

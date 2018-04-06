@@ -1,0 +1,33 @@
+.dashboards-content {
+  padding-top: 72px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dashboard-item {
+  margin: 8px;
+  width: calc(25% - 16px);
+  height: 124px;
+  background: #ff4081;
+  border-radius: 2px;
+  padding: 8px;
+  font-size: 24px;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+  transition: box-shadow .3s;
+}
+.dashboard-item:hover {
+  cursor: pointer;
+  box-shadow: 0 3px 12px -2px rgba(0,0,0,.2), 0 2px 12px 0 rgba(0,0,0,.14), 0 12px 15px 0 rgba(0,0,0,.12);
+}
+.dashboard-item.create-btn {
+  background: lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-item.create-btn mat-icon{
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+}
